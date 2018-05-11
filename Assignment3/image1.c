@@ -1,6 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+void clear_input_buffer(){	/*clear input buffer*/
+	char c;
+	while ((c = getchar()) != '\n' && c != EOF) {}
+	}
+
 char printchar(int pix,int greylevel){
 	switch(greylevel){
 		case 2:
@@ -40,43 +45,49 @@ char printchar(int pix,int greylevel){
 	return 'N';
 };
 
+void printarray(int image_num_array[],int width,int height,int greylevel){
+	fprintf(stderr,"\n\n\nANything\n\n\n");
+	int x,y,counter;
+	counter = 0;
+	for (y = 0 ;y < height;y++){
+		fprintf(stderr,"First for Y: %d\n",y);
+		for (x = 0; x < width;x++){
+			printf("%c",printchar(image_num_array[counter],greylevel));
+			counter++;
+		}
+		printf("\n");
+	}
+}
 
 int main(){
-	int width,height,greylevel,x,y,i,pix,len,debug_counter;
+	int width,height,greylevel,i,pix,len,counter,line,x;
+	counter = 0;
+	i = 0;
+	line = 0;
 	x = 0;
-	y = 0;
-	debug_counter = 0;
-	scanf("%i",&width);
+	scanf("%i%*c",&width);
 	fprintf(stderr, "%s%d\n","Width: ",width );
-	scanf("%i",&height);
-		fprintf(stderr, "%s%d\n","height: ",height );
-	scanf("%i",&greylevel);
+	scanf("%i%*c",&height);
+	fprintf(stderr, "%s%d\n","height: ",height );
+	scanf("%i%*c",&greylevel);
+	fprintf(stderr, "%s%d\n","grey: ",greylevel );
 	int imagesize = width* height;
-	char image_num_array[width+1][height];
+	int image_num_array[8000];
 
-	while (y < height-1){
-		scanf("%i",&pix);
-		scanf("%i",&len);
+	while (counter < imagesize){
+		scanf("%i%*c",&pix);
+		fprintf(stderr,"pix: %d\n",pix);
+		scanf("%i%*c",&len);
+		fprintf(stderr,"len: %d\n",len);
 
-		for(i = 0;i < len; i++){
-			fprintf(stderr, "debug : %d\n------------\ny = %d\n,i = %d\npix = %d\nlen=%d\n------------\n",debug_counter,y,i,pix,len);
-			if(x == width){
-				if (y < height-1){
-					image_num_array[x][y] = '\n';
-					printf("\n");
-					x = 0;
-					y += 1;
-				}else{
-					image_num_array[x][y] = '\0';
-				}
-			}
-			image_num_array[x][y] = printchar(pix,greylevel);
-			printf("%c", printchar(pix,greylevel));
-			x = x+1;
-		};
+		for (i = 0; i < len;i++){
+			image_num_array[counter] = pix;
+			counter++;
+		}
+		fprintf(stderr, "debug : %d\n",counter);
 
 	}
+	printarray(image_num_array,width,height,greylevel);
 
-	fprintf(stderr, "debug : %d\ny = %d\n",debug_counter,y);
 	return 0;
 }
