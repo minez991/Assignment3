@@ -1,11 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void clear_input_buffer(){	/*clear input buffer*/
-	char c;
-	while ((c = getchar()) != '\n' && c != EOF) {}
-	}
-
 char printchar(int pix,int greylevel){
 	switch(greylevel){
 		case 2:
@@ -72,7 +67,7 @@ int main(){
 	scanf("%i%*c",&greylevel);
 	fprintf(stderr, "%s%d\n","grey: ",greylevel );
 	int imagesize = width* height;
-	int image_num_array[8000];
+	int image_num_array[imagesize];
 
 	while (counter < imagesize){
 		scanf("%i%*c",&pix);
